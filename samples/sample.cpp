@@ -3,11 +3,18 @@
 #include <iostream>
 #include <random>
 #include "polinom.h"
+#include "commonHeader.h"
 
 using namespace std;
 
 int main() {
-    
+    polinom p;
+    p = generatePolinom();
+    cout << p << endl;
+    cout << "Hello, world!" << endl;
+
+    /*
+    return 0;
     try {
         char c = ' ';
         polinom p;
@@ -65,6 +72,7 @@ int main() {
     catch (std::exception& e) {
         cout << e.what() << endl;
     }
-
+    */
 	return 0;
+    
 }

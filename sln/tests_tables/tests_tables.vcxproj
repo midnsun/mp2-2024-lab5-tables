@@ -102,13 +102,17 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\test;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\gtest;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\include;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>polinoms.lib;tables.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\sln\x64\Release;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\sln\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -117,22 +121,39 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\test;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\gtest;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\include;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>polinoms.lib;tables.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\sln\x64\Release;D:\Users\maksi\Desktop\dz_38\UNN\mp2-2024-lab5-tables\sln\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\test\test_commonFunctions.cpp" />
+    <ClCompile Include="..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\test\test_myAVLtree.cpp" />
     <ClCompile Include="..\..\test\test_myHashTable.cpp" />
     <ClCompile Include="..\..\test\test_sortedArray.cpp" />
     <ClCompile Include="..\..\test\test_unsortedArray.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\gtest\gtest.vcxproj">
+      <Project>{1818cdaf-ab3e-4c9a-89b3-1606fc3c761c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\polinoms\polinoms.vcxproj">
+      <Project>{a1043fb3-5cbb-4430-bef9-064a4e345d52}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\tables\tables.vcxproj">
+      <Project>{f2c0d8ea-0f80-4e2b-aa1f-e259c9e254a5}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
