@@ -10,6 +10,7 @@ class myHashTable { // Double hash
 #ifdef TEST_MODE
 public:
 #endif
+	int64_t size;
 	myVector<std::pair<Data<T>, char>> data; // second: 0 - empty, 1 - valid, 2 - deleted
 	uint32_t murmurHash(const myVector<char>& key) const {
 		uint32_t m = 0x5bd1e995;
@@ -57,7 +58,7 @@ public:
 		return k % (data.size() - 1) + 1;
 	}
 public:
-	myHashTable() : data(MAX_SIZE) {
+	myHashTable() : data(MAX_SIZE), size(0) {
 		for (size_t i = 0; i < MAX_SIZE; ++i) {
 			data[i].second = 0;
 		}
@@ -90,6 +91,7 @@ public:
 	}
 	void ins(const Data<T>& _data) {
 		if (_data.key.size() == 0) throw std::runtime_error("Invalid key");
+		if (size >= MAX_SIZE) throw std::runtime_error("Table is full");
 		std::pair<Data<T>, char> _pdata;
 		_pdata.first = _data;
 		_pdata.second = 1;
@@ -111,10 +113,12 @@ public:
 	void del(int ind) {
 		if (ind < 0 || ind >= data.size()) throw std::runtime_error("Invalid index");
 		data[ind].second = 2;
+		--size;
 	}
 	void del(const myVector<char>& key) {
 		int ind = findOnIndex(key);
 		if (ind < 0 || ind >= data.size()) return;
 		data[ind].second = 2;
+		--size;
 	}
 };

@@ -11,9 +11,7 @@
 
 template<typename T>
 class AVLtree {
-#ifdef TEST_MODE
-public:
-#endif // TEST_MODE
+protected:
     struct node {
         Data<T> data;
         int32_t h;
@@ -72,8 +70,6 @@ public:
         return n;
     }
     node* recIns(node* n, const Data<T>& _data) {
-        if (_data.key.size() == 0) throw std::runtime_error("Invalid key");
-
         if (n == nullptr) {
             n = new node{ _data };
             return n;
@@ -105,7 +101,7 @@ public:
             n->data = tmp->data; // swap data
             n->right = recDel(n->right, tmp->data.key);
         }
-        else if (keycmple(root->data.key, key)) {
+        else if (keycmple(n->data.key, key)) {
             n->right = recDel(n->right, key);
         }
         else {
@@ -128,6 +124,7 @@ public:
         return Data<T>();
     }
     void ins(const Data<T>& _data) {
+        if (_data.key.size() == 0) throw std::runtime_error("Invalid key");
         root = recIns(root, _data);
     }
     void del(const myVector<char>& key) {
@@ -186,4 +183,34 @@ public:
             printBT(prefix + (isLeft ? "|   " : "    "), node->right, false);
         }
     }
+};
+
+class AVLtreeInterface : public AVLtree<polinom> {
+public:
+    void test_can_create_node();
+    void test_can_right_rotation();
+    void test_cant_right_rotation_nullptr_root();
+    void test_cant_right_rotation_nullptr_left_son();
+    bool test_right_rotation_only_two_elements_correct();
+    bool test_right_rotation_correctly_interact_with_other_elements();
+    void test_can_left_rotation();
+    void test_cant_left_rotation_nullptr_root();
+    void test_cant_left_rotation_nullptr_right_son();
+    bool test_left_rotation_only_two_elements_correct();
+    bool test_left_rotation_correctly_interact_with_other_elements();
+    void test_can_balance();
+    void test_can_balance_nullptr();
+    bool test_correctly_balancing_one_small_left_disbalance();
+    bool test_correctly_balancing_one_big_left_disbalance();
+    bool test_correctly_balancing_one_small_right_disbalance();
+    bool test_correctly_balancing_one_big_right_disbalance();
+    void test_can_recursive_insert();
+    void test_can_recursive_insert_nullptr();
+    bool test_recursive_insert_nullptr_is_correct();
+    bool test_recursive_insert_is_correct();
+    void test_can_recursive_delete();
+    void test_can_recursive_delete_nullptr();
+    bool test_recursive_delete_nullptr_is_correct();
+    bool test_recursive_delete_is_correct_0();
+    bool test_recursive_delete_is_correct_1();
 };

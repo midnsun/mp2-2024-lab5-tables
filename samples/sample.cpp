@@ -4,14 +4,27 @@
 #include <random>
 #include "polinom.h"
 #include "commonHeader.h"
+#include "unsortedArray.h"
+#include "sortedArray.h"
+#include "myHashTable.h"
+#include "myAVLtree.h"
 
 using namespace std;
 
+void foo() {
+    myHashTable<polinom> t;
+
+    for (int i = 0; i < 1'000'000; ++i) {
+        t.ins(Data<polinom>(stringToMyvec(to_string(i)), generatePolinom()));
+    }
+
+    system("pause");
+}
+
 int main() {
-    polinom p;
-    p = generatePolinom();
-    cout << p << endl;
+    foo();
     cout << "Hello, world!" << endl;
+    system("pause");
 
     /*
     return 0;

@@ -1,6 +1,7 @@
 #include <gtest.h>
 #define TEST_MODE
 #include "myHashTable.h"
+#include <string>
 
 static myHashTable<polinom> table;
 
@@ -424,4 +425,14 @@ TEST(myHashTable, multiple_delete_9) {
 	EXPECT_EQ(0, table.find(stringToMyvec("pol7")).key.size());
 	EXPECT_EQ(0, table.find(stringToMyvec("pol8")).key.size());
 	EXPECT_EQ(0, table.find(stringToMyvec("pol9")).key.size());
+}
+
+TEST(myHashTable, table_is_full) {
+	for (int i = 0; i < MAX_SIZE; ++i) {
+		ASSERT_NO_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(i)), generatePolinom())));
+	}
+	for (int i = 0; i < MAX_SIZE; ++i) {
+		EXPECT_EQ(true, keycmpeq(stringToMyvec(std::to_string(i)), table.find(stringToMyvec(std::to_string(i))).key));
+	}
+	ASSERT_ANY_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(MAX_SIZE)), generatePolinom())));
 }
