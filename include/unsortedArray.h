@@ -7,12 +7,14 @@
 
 template<typename T>
 class unsortedArray {
+public:
+	int operationsCount;
 #ifdef TEST_MODE
 public:
 #endif 
 	myVector<Data<T>> data;
 public:
-	unsortedArray() {}
+	unsortedArray(): operationsCount(0) {}
 	Data<T> find(const myVector<char>& key) const {
 		if (key.size() == 0) throw std::runtime_error("Invalid key");
 		int i;

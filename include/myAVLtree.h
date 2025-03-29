@@ -5,12 +5,10 @@
 #include <exception>
 #include <stdexcept>
 
-#include <string> ////////////////////////////////////////////////////////
-#include <iostream> ////////////////
-#include <iomanip>
-
 template<typename T>
 class AVLtree {
+public:
+    int operationsCount;
 protected:
     struct node {
         Data<T> data;
@@ -111,7 +109,7 @@ protected:
         return balance(n);
     }
 public:
-    AVLtree() : root(nullptr) {}
+    AVLtree() : root(nullptr), operationsCount(0) {}
     Data<T> find(const myVector<char>& key) const {
         if (key.size() == 0) throw std::runtime_error("Invalid key");
         AVLtree::node* currentRoot = root;
@@ -139,48 +137,6 @@ public:
             if (tmp->left != nullptr) nodes.push(tmp->left);
             if (tmp->right != nullptr) nodes.push(tmp->right);
             delete tmp;
-        }
-    }
-
-    void print() const { /////////////////////////////////////
-        //	postorder(root, 0);
-        printBT("", root, false);
-        return;
-        myQueue<node*> q;
-        if (root != nullptr)q.push(root);
-        else std::cout << "Null";
-        while (!q.isEmpty()) {
-            node* tmp = q.back();
-            std::cout << tmp->data.key[3] << " ";
-            if (tmp->left != nullptr) q.push(tmp->left);
-            if (tmp->right != nullptr) q.push(tmp->right);
-        }
-        std::cout << std::endl << std::endl;
-    }
-    void postorder(node* p, int indent) const { /////////////////////////////////////
-        if (p != nullptr) {
-            if (p->left) postorder(p->left, indent + 4);
-            if (p->right) postorder(p->right, indent + 4);
-            if (indent) {
-                std::cout << std::setw(indent) << ' ';
-            }
-            std::cout << p->data.key[3] << " " << p->h << "\n ";
-        }
-    }
-    void printBT(const std::string& prefix, const node* node, bool isLeft) const  /////////////////////////////////////
-    {
-        if (node != nullptr)
-        {
-            std::cout << prefix;
-
-            std::cout << (isLeft ? "|--" : "^--");
-
-            // print the value of the node
-            std::cout << node->data.key[3] << "+" << node->h << std::endl;
-
-            // enter the next tree level - left and right branch
-            printBT(prefix + (isLeft ? "|   " : "    "), node->left, true);
-            printBT(prefix + (isLeft ? "|   " : "    "), node->right, false);
         }
     }
 };

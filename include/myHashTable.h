@@ -7,6 +7,8 @@
 
 template <typename T>
 class myHashTable { // Double hash
+public:
+	int operationsCount;
 #ifdef TEST_MODE
 public:
 #endif
@@ -58,7 +60,7 @@ public:
 		return k % (data.size() - 1) + 1;
 	}
 public:
-	myHashTable() : data(MAX_SIZE), size(0) {
+	myHashTable() : data(MAX_SIZE), size(0), operationsCount(0) {
 		for (size_t i = 0; i < MAX_SIZE; ++i) {
 			data[i].second = 0;
 		}
