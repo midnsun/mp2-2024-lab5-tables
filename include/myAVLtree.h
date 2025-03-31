@@ -8,7 +8,7 @@
 template<typename T>
 class AVLtree {
 public:
-    int operationsCount;
+    mutable int operationsCount;
 protected:
     struct node {
         Data<T> data;
@@ -21,6 +21,7 @@ protected:
     node* leftRotation(node* n) {
         if (n == nullptr) throw std::runtime_error("Invalid left rotation argument: root nullptr");
         if (n->right == nullptr) throw std::runtime_error("Invalid left rotation argument: right nullptr");
+        ++operationsCount;
         AVLtree::node* newn = n->right;
         n->right = newn->left;
         newn->left = n;
@@ -33,6 +34,7 @@ protected:
     node* rightRotation(node* n) {
         if (n == nullptr) throw std::runtime_error("Invalid right rotation argument: root nullptr");
         if (n->left == nullptr) throw std::runtime_error("Invalid right rotation argument: left nullptr");
+        ++operationsCount;
         AVLtree::node* newn = n->left;
         n->left = newn->right;
         newn->right = n;
@@ -68,6 +70,7 @@ protected:
         return n;
     }
     node* recIns(node* n, const Data<T>& _data) {
+        ++operationsCount;
         if (n == nullptr) {
             n = new node{ _data };
             return n;
@@ -76,9 +79,11 @@ protected:
             throw std::runtime_error("Cannot insert duplicates");
         }
         else if (keycmple(n->data.key, _data.key)) {
+            ++operationsCount;
             n->right = recIns(n->right, _data);
         }
         else {
+            ++operationsCount;
             n->left = recIns(n->left, _data);
         }
 
@@ -86,7 +91,7 @@ protected:
     }
     node* recDel(node* n, const myVector<char>& key) {
         node* tmp = nullptr;
-
+        ++operationsCount;
         if (n == nullptr) return nullptr; // no element
         else if (keycmpeq(n->data.key, key)) { // found element
             if (n->left == nullptr || n->right == nullptr) { // has only 1 son
@@ -100,9 +105,11 @@ protected:
             n->right = recDel(n->right, tmp->data.key);
         }
         else if (keycmple(n->data.key, key)) {
+            ++operationsCount;
             n->right = recDel(n->right, key);
         }
         else {
+            ++operationsCount;
             n->left = recDel(n->left, key);
         }
 
@@ -114,8 +121,10 @@ public:
         if (key.size() == 0) throw std::runtime_error("Invalid key");
         AVLtree::node* currentRoot = root;
         while (currentRoot != nullptr) {
+            ++operationsCount;
             if (keycmpeq(currentRoot->data.key, key))
                 return currentRoot->data;
+            ++operationsCount;
             if (keycmple(currentRoot->data.key, key)) currentRoot = currentRoot->right;
             else currentRoot = currentRoot->left;
         }

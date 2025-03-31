@@ -21,6 +21,10 @@ int main() {
     char c = 0;
     std::cout << "Hello! " << std::endl;
     while (c != 'q') {
+        unsortedTable.operationsCount = 0;
+        sortedTable.operationsCount = 0;
+        treeTable.operationsCount = 0;
+        hashTable.operationsCount = 0;
         std::cout << "Type 'f' for find, 'i' for insert, 'd' for delete, 'q' for quit" << std::endl;
         std::cin >> c;
         switch (c)

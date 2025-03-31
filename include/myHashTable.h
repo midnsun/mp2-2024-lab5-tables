@@ -8,7 +8,7 @@
 template <typename T>
 class myHashTable { // Double hash
 public:
-	int operationsCount;
+	mutable int operationsCount;
 #ifdef TEST_MODE
 public:
 #endif
@@ -72,6 +72,7 @@ public:
 		uint32_t h1 = murmurHash(key);
 		uint32_t h2 = hash2(key);
 		for (step = 0; step < MAX_SIZE; ++step) {
+			++operationsCount;
 			ind = (h1 + step * h2) % data.size();
 			if (data[ind].second == 0) return Data<T>();
 			else if (data[ind].second == 1 && keycmpeq(data[ind].first.key, key)) return data[ind].first;
@@ -85,6 +86,7 @@ public:
 		uint32_t h1 = murmurHash(key);
 		uint32_t h2 = hash2(key);
 		for (step = 0; step < MAX_SIZE; ++step) {
+			++operationsCount;
 			ind = (h1 + step * h2) % data.size();
 			if (data[ind].second == 0) return -1;
 			else if (data[ind].second == 1 && keycmpeq(data[ind].first.key, key)) return ind;
@@ -103,6 +105,7 @@ public:
 		uint32_t h1 = murmurHash(_data.key);
 		uint32_t h2 = hash2(_data.key);
 		for (step = 0; step < MAX_SIZE; ++step) {
+			++operationsCount;
 			ind = (h1 + step * h2) % data.size();
 			if (data[ind].second == 0 || data[ind].second == 2) {
 				data[ind] = _pdata;

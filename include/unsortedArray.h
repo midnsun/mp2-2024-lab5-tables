@@ -8,7 +8,7 @@
 template<typename T>
 class unsortedArray {
 public:
-	int operationsCount;
+	mutable int operationsCount;
 #ifdef TEST_MODE
 public:
 #endif 
@@ -19,6 +19,7 @@ public:
 		if (key.size() == 0) throw std::runtime_error("Invalid key");
 		int i;
 		for (i = 0; i < data.size(); ++i) {
+			++operationsCount;
 			if (keycmpeq(data[i].key, key)) return data[i];
 		}
 		return Data<T>();
@@ -27,6 +28,7 @@ public:
 		if (key.size() == 0) throw std::runtime_error("Invalid key");
 		int i;
 		for (i = 0; i < data.size(); ++i) {
+			++operationsCount;
 			if (keycmpeq(data[i].key, key)) return i;
 		}
 		return -1;
@@ -34,17 +36,21 @@ public:
 	void ins(const Data<T>& _data) {
 		if (_data.key.size() == 0) throw std::runtime_error("Invalid key");
 		if (data.size() >= MAX_SIZE) throw std::runtime_error("Table is too big");
+//		++operationsCount;
 		data.push_back(_data);
 	}
 	void del(int ind) {
 		if (ind < 0 || ind >= data.size()) throw std::runtime_error("Invalid index");
+		++operationsCount;
 		dataswap(data[ind], data[data.size() - 1]);
 		data.resize(data.size() - 1);
 	}
 
 	void del(const myVector<char>& key) {
 		int ind = findOnIndex(key);
+		operationsCount = 0;
 		if (ind < 0 || ind >= data.size()) return;
+		++operationsCount;
 		dataswap(data[ind], data[data.size() - 1]);
 		data.resize(data.size() - 1);
 	}
