@@ -429,6 +429,7 @@ TEST(myHashTable, multiple_delete_9) {
 
 TEST(myHashTable, table_is_full) {
 	table.data.resize(0);
+	table.data.resize(MAX_SIZE);
 	for (int i = 0; i < MAX_SIZE; ++i) {
 		ASSERT_NO_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(i)), generatePolinom())));
 	}
