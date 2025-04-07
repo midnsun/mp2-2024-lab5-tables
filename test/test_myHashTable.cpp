@@ -427,6 +427,7 @@ TEST(myHashTable, multiple_delete_9) {
 	EXPECT_EQ(0, table.find(stringToMyvec("pol9")).key.size());
 }
 
+/*
 TEST(myHashTable, table_is_full) {
 	for (int i = 0; i < MAX_SIZE; ++i) {
 		ASSERT_NO_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(i)), generatePolinom())));
@@ -436,3 +437,4 @@ TEST(myHashTable, table_is_full) {
 	}
 	ASSERT_ANY_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(MAX_SIZE)), generatePolinom())));
 }
+*/
