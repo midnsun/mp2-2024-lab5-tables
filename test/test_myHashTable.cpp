@@ -428,8 +428,7 @@ TEST(myHashTable, multiple_delete_9) {
 }
 
 TEST(myHashTable, table_is_full) {
-	table.data.resize(0);
-	table.data.resize(MAX_SIZE);
+	table = myHashTable<polinom>();
 	for (int i = 0; i < MAX_SIZE; ++i) {
 		ASSERT_NO_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(i)), generatePolinom())));
 	}
@@ -437,4 +436,5 @@ TEST(myHashTable, table_is_full) {
 		EXPECT_EQ(true, keycmpeq(stringToMyvec(std::to_string(i)), table.find(stringToMyvec(std::to_string(i))).key));
 	}
 	ASSERT_ANY_THROW(table.ins(Data<polinom>(stringToMyvec(std::to_string(MAX_SIZE)), generatePolinom())));
+	table = myHashTable<polinom>();
 }
